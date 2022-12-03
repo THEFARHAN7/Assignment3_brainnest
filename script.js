@@ -16,10 +16,6 @@ function game()
         } else {
             console.log("Error! Try again!");
         }
-        if (input === null) {
-            return;
-        }
-
         //WINNER 
     function playRound(playerSelection, computerSelection) 
     {
