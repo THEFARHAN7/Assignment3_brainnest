@@ -1,62 +1,84 @@
-
-const choices = ["rock", "paper", "scissors"];
-    
-    const playerSelection = prompt("Do you choose rock, paper or scissors?").toLocaleLowerCase(); 
-    if(playerSelection ==="paper" , playerSelection ==="rock" , playerSelection ==="scissors" ){
-        console.log("You chose " + `${playerSelection}`);
-    } 
-    else {
-        console.log("Error! Try again!");
+console.log("==ROCK PAPER SCISSORS GAME==")
+function computerPlay() {
+    let items = ["rock", "paper", "scissors"]
+      let item = items[Math.floor(Math.random()*items.length)];
+      console.log ('Computer Choose', item)
+        return item
+}
+function userPlay() {
+    let option = prompt("Please select rock paper or scissors");
+    let result = option.toLowerCase();
+    result= result.trim()
+    if (result== "rock" || result=="paper" || result=="scissors"){
+        console.log ('You Choose', result)
+        return result
+    }else{
+        console.log("Try Again!! Invalid Input")
+        return userPlay()
     }
-    
-     const computerSelection= Computerplay();
-     function Computerplay(computerSelection)
-     {
-         computerSelection = choices[Math.floor(Math.random()*3)];
-         console.log("Computer chose" + ` ${computerSelection}`);
-         return computerSelection;
-     }
+}
+function playRound(playerSelection, computerSelection){
+    if(playerSelection === computerSelection){
+       console.log ('Draw');
+       return "Draw"
+    }
+    else if(playerSelection == 'rock'){
+        if(computerSelection == 'paper'){
+            console.log ('Computer Win');
+            return "Computer Win"            
+        }else{
+            console.log ('You Win');
+            return "You Win"       
+        }  
+    }
+    else if(playerSelection == 'scissors'){
+        if(computerSelection == 'rock'){
+            console.log ('Computer Win');
+            return "Computer Win"       
+        }else{
+            console.log ('You Win');
+            return "You Win"
+        }
+    }        
+    else if(playerSelection == 'paper'){
+        if(computerSelection == 'scissors'){
+             console.log ('Computer Win');
+             return "Computer Win"
+        }else{
+            console.log ('You Win');
+            return "You Win"
+        }
+    }   
+}
 
-         
-    function playRound(playerSelection, computerSelection) 
+function game(){
+    let computerScore = 0
+    let playerScore =  0
+    for (index=1; index<=5; index++)
     {
-        if (playerSelection === 'rock' && computerSelection === 'paper') 
-        {
-            console.log('You lose! Paper beats Rock');
-        } 
-        else if (playerSelection === 'rock' && computerSelection === 'scissors') 
-        {
-            console.log('You win! Rock beats Scissors');
-        }
-        else if (playerSelection === 'rock' && computerSelection === 'rock') 
-        {
-            console.log('Draw');
-        }
-        else if (playerSelection === 'scissors' && computerSelection === 'rock') {
-            console.log('You Lose! Rock beats Scissors');
-        }
-        else if (playerSelection === 'scissors' && computerSelection === 'paper') 
-        {
-        console.log('You win! Scissors beats Paper');
-        } 
-        else if (playerSelection === 'scissors' && computerSelection === 'scissors') 
-        {
-            console.log('Draw');
-        }
-        else if (playerSelection === 'paper' && computerSelection === 'rock') 
-        {
-        console.log('You win! Paper beats Rock');
-        } 
-        else if (playerSelection === 'paper' && computerSelection === 'scissors') 
-        {
-        console.log('You lose! Scissors beats Paper');
-        } 
-        else if (playerSelection === 'paper' && computerSelection === 'paper') 
-        {
-            console.log('Draw');
-        }
-        else if(playerSelection=== null){
-        console.log('Try Again!!');
-        }
+        const playerSelection= userPlay() 
+        const computerSelection= computerPlay() 
+        const play = playRound(playerSelection, computerSelection)
+        
+        
+        if (play==="Computer Win"){
+            computerScore = computerScore + 1;
+            console.log("Computer Score", computerScore)
+            console.log("========")
+        }else if (play==="You Win"){
+            playerScore= playerScore + 1;
+            console.log("Player Score", playerScore)
+            console.log("========")
+        }else{
+            console.log("Its a Tie: Your Score", playerScore, "Computer Score", computerScore)
+            console.log("========")
+        }  
     }
-    let winner = playRound(playerSelection, computerSelection);
+    if(computerScore > playerScore){
+        return "Computer Win"
+    } else{
+        return "You Won"
+    }
+}
+const winner= game()   
+   console.log("Winner of the game",winner) 
